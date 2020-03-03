@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#minhas anotacoes
+anotacoes.txt
+comandos.txt
+
 # testing
 /coverage
 
