@@ -22,6 +22,9 @@ export function* signInRequest({ payload }) {
       return;
     }
 
+    //setando Authorization ao logar
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     //sucesso
     yield put(signInSuccess(token, user));
 
@@ -53,7 +56,19 @@ export function* signUpRequest({ payload }) {
   }
 }
 
+export function setToken({ payload }) {
+  if (!payload) return;
+
+  const { token } = payload.auth;
+
+  if (token) {
+    //setando Authorization sem passar pelo logar
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+  }
+}
+
 export default all([
+  takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signInRequest),
   takeLatest('@auth/SIGN_UP_REQUEST', signUpRequest),
 ]);
