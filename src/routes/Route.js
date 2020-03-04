@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import AuthLayout from '~/pages/_layouts/auth';
 import Defaultlayout from '~/pages/_layouts/default';
+import store from '~/store/';
 
 export default function RouteWrapper({
   component: Component,
   isPrivate,
   ...rest
 }) {
-  //usuario está logado ou não
-  const signed = false;
+  //valida se usuario está logado via reducer
+  const { signed } = store.getState().auth;
 
   //não logado acessando rota privada
   if (!signed && isPrivate) {
