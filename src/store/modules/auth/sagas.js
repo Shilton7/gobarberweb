@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { signInSuccess, signFailure } from './actions';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
-//request
+//request login
 export function* signInRequest({ payload }) {
   try {
     const { email, password } = payload;
@@ -33,4 +33,27 @@ export function* signInRequest({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signInRequest)]);
+//Criar conta
+export function* signUpRequest({ payload }) {
+  try {
+    const { name, email, password } = payload;
+
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password,
+      provider: true,
+    });
+
+    //login
+    history.push('/');
+  } catch (error) {
+    toast.error('Falha criação da conta.');
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signInRequest),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUpRequest),
+]);
