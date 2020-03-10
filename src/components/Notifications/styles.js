@@ -13,7 +13,7 @@ export const Badge = styled.button`
   background: none;
 
   ${props =>
-    props.hasUnread &&
+    props.BadgeNaoLidas &&
     css`
       &::after {
         position: absolute;
@@ -36,6 +36,7 @@ export const NotificationList = styled.div`
   background: rgba(0, 0, 0, 0.6);
   border-radius: 4px;
   padding: 15px 5px;
+  display: ${props => (props.show ? 'block' : 'none')};
 
   &::before {
     content: '';
@@ -73,6 +74,8 @@ export const Notification = styled.div`
   time {
     font-size: 12px;
     opacity: 0.6;
+    display: block;
+    margin-bottom: 5px;
   }
 
   button {
@@ -80,14 +83,11 @@ export const Notification = styled.div`
     border: 0;
     background: none;
     color: ${lighten(0.2, '#7159c1')};
-    padding: 0 5px;
-    margin: 0 5px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   /* notificações lidas */
   ${props =>
-    props.unread &&
+    props.NotificationNaoLida &&
     css`
       &::after {
         content: '';
@@ -96,6 +96,7 @@ export const Notification = styled.div`
         height: 8px;
         background: #ff892e;
         border-radius: 50%;
+        margin-left: 10px;
       }
     `}
 `;
