@@ -3,8 +3,12 @@ import { Container, Content, Profile } from './styles';
 import logo from '~/assets/img/logo_purple.svg';
 import { Link } from 'react-router-dom';
 import Notifications from '~/components/Notifications';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+  //Dados profile redux
+  const dadosUser = useSelector(state => state.user.profileUser);
+
   return (
     <Container>
       <Content>
@@ -17,11 +21,14 @@ export default function Header() {
           <Notifications />
           <Profile>
             <div>
-              <strong>Shilton</strong>
+              <strong>{dadosUser.name}</strong>
               <Link to="/profile">Meu perfil</Link>
             </div>
             <img
-              src="https://api.adorable.io/avatars/50/abott@adorable.pngCopy to Clipboard"
+              src={
+                dadosUser.avatar.url ||
+                'https://api.adorable.io/avatars/40/abott@adorable.png'
+              }
               alt="logo_perfil"
             />
           </Profile>
