@@ -49,5 +49,10 @@ export const Time = styled.li`
     display: block;
     margin-top: 3px;
     color: ${props => (props.available ? '#999' : '#666')};
+    font-weight: bold;
+  }
+
+  .icon_time {
+    margin-left: 220px;
   }
 `;
